@@ -5,7 +5,7 @@ import { DateRange } from 'react-date-range'
 import { useState } from 'react'
 import { format } from 'date-fns'
 
-const Header = () => {
+const Header = ({type}) => {
   const [openDate, setOpenDate] = useState(false)
   const [openOptions, setOpenOptions] = useState(false)
   const [options, setOptions] = useState({
@@ -32,7 +32,7 @@ const Header = () => {
 
   return (
     <div className="header">
-      <div className="headerContainer">
+      <div className={type === 'list' ? 'headerContainer listMode' : 'headerContainer'}>
         <div className="headerList">
           <div className="headerListItem active">
               <FontAwesomeIcon icon={faBed} />
@@ -55,7 +55,8 @@ const Header = () => {
               <span>Airport taxis</span>
           </div>
         </div>
-        <h1 className='headerTitle'>A lifetime of discounts? It's Genious.</h1>
+        {type !== 'list' &&
+          <><h1 className='headerTitle'>A lifetime of discounts? It's Genious.</h1>
         <p className="headerDesc">
           Get rewarded for your travels - unlock instant saving of 10% or more with a free Lamabooking account
         </p>
@@ -123,7 +124,7 @@ const Header = () => {
           <div className="headerSearchItem">
             <div className="headerBtn">Search</div>
           </div>
-        </div>
+        </div></>}
       </div>
     </div>
   )
