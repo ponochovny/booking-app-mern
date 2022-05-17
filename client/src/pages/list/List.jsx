@@ -6,13 +6,24 @@ import { useState } from 'react'
 import { format } from 'date-fns'
 import { DateRange } from 'react-date-range'
 import SearchItem from '../../components/searchItem/SearchItem'
+import useFetch from '../../hooks/useFetch'
 
 const List = () => {
 	const location = useLocation()
 	const [destination, setDestination] = useState(location.state.destination)
-	const [date, setDate] = useState(location.state.date)
+	const [date, setDate] = useState(location.state?.date)
 	const [openDate, setOpenDate] = useState(false)
-	const [options, setOptions] = useState(location.state.options)
+	const [options, setOptions] = useState(location.state?.options)
+	const [max, setMax] = useState(undefined)
+	const [min, setMin] = useState(undefined)
+
+	const { data, loading, error, reFetch } = useFetch(
+		`/hotels?city=${destination}&min=${min || 0}&max=${max || 999}`
+	)
+
+	const handleClick = () => {
+		reFetch()
+	}
 
 	return (
 		<div>
@@ -24,15 +35,23 @@ const List = () => {
 						<h1 className="lsTitle">Search</h1>
 						<div className="lsItem">
 							<label>Destination</label>
-							<input type="text" placeholder="destination" />
+							<input
+								type="text"
+								placeholder="destination"
+								value={destination}
+								onChange={(e) => setDestination(e.target.value)}
+							/>
 						</div>
 						<div className="lsItem">
 							<label>Check-in date</label>
-							<span onClick={() => setOpenDate(!openDate)}>{`${format(
-								date[0].startDate,
-								'MM/dd/yyyy'
-							)} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
-							{openDate && (
+
+							{date && (
+								<span onClick={() => setOpenDate(!openDate)}>{`${format(
+									date[0].startDate,
+									'MM/dd/yyyy'
+								)} to ${format(date[0].endDate, 'MM/dd/yyyy')}`}</span>
+							)}
+							{openDate && date && (
 								<DateRange
 									onChange={(item) => setDate([item.selection])}
 									minDate={new Date()}
@@ -47,13 +66,21 @@ const List = () => {
 									<span className="lsOptionText">
 										Min price <small>per night</small>
 									</span>
-									<input type="number" className="lsOptionInput" />
+									<input
+										type="number"
+										className="lsOptionInput"
+										onChange={(e) => setMin(e.target.value)}
+									/>
 								</div>
 								<div className="lsOptionItem">
 									<span className="lsOptionText">
 										Max price <small>per night</small>
 									</span>
-									<input type="number" className="lsOptionInput" />
+									<input
+										type="number"
+										className="lsOptionInput"
+										onChange={(e) => setMax(e.target.value)}
+									/>
 								</div>
 								<div className="lsOptionItem">
 									<span className="lsOptionText">Adult</span>
@@ -61,7 +88,7 @@ const List = () => {
 										type="number"
 										className="lsOptionInput"
 										min={1}
-										placeholder={options.adult}
+										placeholder={options?.adult}
 									/>
 								</div>
 								<div className="lsOptionItem">
@@ -70,7 +97,7 @@ const List = () => {
 										type="number"
 										className="lsOptionInput"
 										min={0}
-										placeholder={options.children}
+										placeholder={options?.children}
 									/>
 								</div>
 								<div className="lsOptionItem">
@@ -79,22 +106,23 @@ const List = () => {
 										type="number"
 										className="lsOptionInput"
 										min={1}
-										placeholder={options.room}
+										placeholder={options?.room}
 									/>
 								</div>
 							</div>
 						</div>
-						<button>Search</button>
+						<button onClick={handleClick}>Search</button>
 					</div>
 					<div className="listResult">
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
-						<SearchItem />
+						{loading ? (
+							'Loading'
+						) : (
+							<>
+								{data.map((item) => (
+									<SearchItem item={item} key={item._id} />
+								))}
+							</>
+						)}
 					</div>
 				</div>
 			</div>
