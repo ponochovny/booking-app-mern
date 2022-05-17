@@ -95,7 +95,7 @@ const Hotel = () => {
 					</span>
 					<div className="hotelImages">
 						{photos.map((photo, i) => (
-							<div className="hotelImgWrapper">
+							<div className="hotelImgWrapper" key={i + Math.random()}>
 								<img
 									src={photo.src}
 									alt=""
