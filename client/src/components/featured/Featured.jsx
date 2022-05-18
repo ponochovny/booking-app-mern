@@ -2,7 +2,7 @@ import useFetch from '../../hooks/useFetch'
 import './Featured.scss'
 
 const Featured = () => {
-	const { data, loading, error } = useFetch(
+	const { data, loading } = useFetch(
 		'/hotels/countByCity?cities=berlin,Madrid,London'
 	)
 

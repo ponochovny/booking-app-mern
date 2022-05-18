@@ -19,7 +19,6 @@ import Reserve from '../../components/reserve/Reserve'
 
 const Hotel = () => {
 	const location = useLocation()
-	console.log('... location', location)
 	const id = location.pathname.split('/')[2]
 	const [slideNumber, setSliderNumber] = useState(0)
 	const [open, setOpen] = useState(false)
@@ -59,10 +58,8 @@ const Hotel = () => {
 
 	const handleClick = () => {
 		if (user) {
-			console.log('... 1')
 			setOpenModal(true)
 		} else {
-			console.log('... 2')
 			navigate('/login')
 		}
 	}

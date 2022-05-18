@@ -1,4 +1,4 @@
-import { createContext, useEffect, useReducer } from 'react'
+import { createContext, useReducer } from 'react'
 
 const INITIAL_STATE = {
 	city: undefined,
@@ -13,8 +13,6 @@ const INITIAL_STATE = {
 export const SearchContext = createContext(INITIAL_STATE)
 
 const SearchReducer = (state, action) => {
-	console.log('... search reducer:')
-	console.log(state, action)
 	switch (action.type) {
 		case 'NEW_SEARCH':
 			return action.payload
