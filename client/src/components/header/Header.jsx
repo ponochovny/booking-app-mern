@@ -57,59 +57,63 @@ const Header = ({ type }) => {
 	}
 
 	return (
-		<div className="header">
+		<div className='header'>
 			<div
 				className={
 					type === 'list' ? 'headerContainer listMode' : 'headerContainer'
 				}
 			>
-				<div className="headerList">
-					<div className="headerListItem active">
+				<div className='headerList'>
+					<div className='headerListItem active'>
 						<FontAwesomeIcon icon={faBed} />
 						<span>Stays</span>
 					</div>
-					<div className="headerListItem">
+					<div className='headerListItem'>
 						<FontAwesomeIcon icon={faPlane} />
 						<span>Flights</span>
 					</div>
-					<div className="headerListItem">
+					<div className='headerListItem'>
 						<FontAwesomeIcon icon={faCar} />
 						<span>Car rentalks</span>
 					</div>
-					<div className="headerListItem">
+					<div className='headerListItem'>
 						<FontAwesomeIcon icon={faBed} />
 						<span>Attractions</span>
 					</div>
-					<div className="headerListItem">
+					<div className='headerListItem'>
 						<FontAwesomeIcon icon={faTaxi} />
 						<span>Airport taxis</span>
 					</div>
 				</div>
 				{type !== 'list' && (
 					<>
-						<h1 className="headerTitle">
+						<h1 className='headerTitle'>
 							A lifetime of discounts? It's Genious.
 						</h1>
-						<p className="headerDesc">
+						<p className='headerDesc'>
 							Get rewarded for your travels - unlock instant saving of 10% or
-							more with a free Lamabooking account
+							more with a free Ponochovnybooking account
 						</p>
-						{!user && <button className="headerBtn">Sign in / Register</button>}
-						<div className="headerSearch">
-							<div className="headerSearchItem">
-								<FontAwesomeIcon icon={faBed} className="headerIcon" />
+						{!user && (
+							<button className='headerBtn' onClick={() => navigate('/login')}>
+								Sign in / Register
+							</button>
+						)}
+						<div className='headerSearch'>
+							<div className='headerSearchItem'>
+								<FontAwesomeIcon icon={faBed} className='headerIcon' />
 								<input
-									type="text"
-									placeholder="Where are you going?"
-									className="headerSearchInput"
+									type='text'
+									placeholder='Where are you going?'
+									className='headerSearchInput'
 									onChange={(e) => setDestination(e.target.value)}
 								/>
 							</div>
-							<div className="headerSearchItem">
-								<FontAwesomeIcon icon={faCalendarDays} className="headerIcon" />
+							<div className='headerSearchItem'>
+								<FontAwesomeIcon icon={faCalendarDays} className='headerIcon' />
 								<span
 									onClick={() => setOpenDate(!openDate)}
-									className="headerSearchText"
+									className='headerSearchText'
 								>{`${format(dates[0].startDate, 'MM/dd/yyyy')} to ${format(
 									dates[0].endDate,
 									'MM/dd/yyyy'
@@ -121,72 +125,72 @@ const Header = ({ type }) => {
 										moveRangeOnFirstSelection={false}
 										ranges={dates}
 										minDate={new Date()}
-										className="date"
+										className='date'
 									/>
 								)}
 							</div>
-							<div className="headerSearchItem">
-								<FontAwesomeIcon icon={faPerson} className="headerIcon" />
+							<div className='headerSearchItem'>
+								<FontAwesomeIcon icon={faPerson} className='headerIcon' />
 								<span
-									className="headerSearchText"
+									className='headerSearchText'
 									onClick={() => setOpenOptions(!openOptions)}
 								>{`${options.adult} adult • ${options.children} children • ${options.room} room`}</span>
 								{openOptions && (
-									<div className="options">
-										<div className="optionItem">
-											<span className="optionText">Adult</span>
-											<div className="optionCounter">
+									<div className='options'>
+										<div className='optionItem'>
+											<span className='optionText'>Adult</span>
+											<div className='optionCounter'>
 												<button
-													className="optionCounterButton"
+													className='optionCounterButton'
 													onClick={() => handleOption('adult', 'decrease')}
 												>
 													-
 												</button>
-												<span className="optionCounterNumber">
+												<span className='optionCounterNumber'>
 													{options.adult}
 												</span>
 												<button
-													className="optionCounterButton"
+													className='optionCounterButton'
 													onClick={() => handleOption('adult', 'increase')}
 												>
 													+
 												</button>
 											</div>
 										</div>
-										<div className="optionItem">
-											<span className="optionText">Children</span>
-											<div className="optionCounter">
+										<div className='optionItem'>
+											<span className='optionText'>Children</span>
+											<div className='optionCounter'>
 												<button
-													className="optionCounterButton"
+													className='optionCounterButton'
 													onClick={() => handleOption('children', 'decrease')}
 												>
 													-
 												</button>
-												<span className="optionCounterNumber">
+												<span className='optionCounterNumber'>
 													{options.children}
 												</span>
 												<button
-													className="optionCounterButton"
+													className='optionCounterButton'
 													onClick={() => handleOption('children', 'increase')}
 												>
 													+
 												</button>
 											</div>
 										</div>
-										<div className="optionItem">
-											<span className="optionText">Room</span>
-											<div className="optionCounter">
+										<div className='optionItem'>
+											<span className='optionText'>Room</span>
+											<div className='optionCounter'>
 												<button
-													className="optionCounterButton"
+													className='optionCounterButton'
 													onClick={() => handleOption('room', 'increase')}
 												>
 													+
 												</button>
-												<span className="optionCounterNumber">
+												<span className='optionCounterNumber'>
 													{options.room}
 												</span>
 												<button
-													className="optionCounterButton"
+													className='optionCounterButton'
 													onClick={() => handleOption('room', 'decrease')}
 												>
 													-
@@ -196,8 +200,8 @@ const Header = ({ type }) => {
 									</div>
 								)}
 							</div>
-							<div className="headerSearchItem">
-								<div className="headerBtn" onClick={handleSearch}>
+							<div className='headerSearchItem'>
+								<div className='headerBtn' onClick={handleSearch}>
 									Search
 								</div>
 							</div>
